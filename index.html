@@ -434,11 +434,12 @@
 
       // أسماء الأعمدة المفترضة: title, author, description,
       // cover_url, file_url, published.
-      const { data, error } = await supabaseClient
-        .from("books")
-        .select("id,title,author,description,cover_url,file_url")
-        .eq("published", true)
-        .order("title", { ascending: true });
+   
+const { data, error } = await supabaseClient
+  .from("books")
+  .select("id,title,author,description,cover_url,file_url")
+  .eq("is_published", true)
+  .order("title", { ascending: true });
 
       if (error) {
         console.error("Books query error:", error);
