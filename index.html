@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173c35">
+  <title>أقراني | مكتبتك الإلكترونية</title>
+  <meta name="description" content="أقراني، مكتبة إلكترونية عربية للبحث عن الكتب والقراءة عبر الإنترنت.">
+
+  <style>
+    :root {
+      --green: #173c35;
+      --green2: #24594d;
+      --cream: #f7f5ee;
+      --gold: #d6b879;
+      --text: #24332f;
+      --muted: #718078;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
+    header {
+      background: var(--green);
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 27px;
+      font-weight: bold;
+      color: var(--gold);
+    }
+
+    .brand small {
+      display: block;
+      font-size: 11px;
+      color: #e8e8dd;
+      font-weight: normal;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 17px;
+      font-weight: bold;
+    }
+
+    .btn-gold { background: var(--gold); color: var(--green); }
+    .btn-outline { border: 1px solid #d6e0d9; color: white; background: transparent; }
+    .btn-green { background: var(--green); color: white; }
+
+    .hero {
+      background: linear-gradient(130deg, #173c35, #2c6252);
+      color: white;
+      padding: 58px 6% 65px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(29px, 5vw, 46px);
+      margin: 0 0 15px;
+    }
+
+    .hero p {
+      color: #e2eae3;
+      line-height: 1.9;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    .search {
+      display: flex;
+      max-width: 620px;
+      margin: auto;
+      background: white;
+      padding: 6px;
+      border-radius: 12px;
+      gap: 6px;
+    }
+
+    .search input {
+      min-width: 0;
+      flex: 1;
+      border: 0;
+      outline: 0;
+      padding: 12px;
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 35px 5%;
+      min-height: 300px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 { margin: 0; font-size: 24px; }
+
+    #status {
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 15px 0;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 20px;
+    }
+
+    .book {
+      background: white;
+      border: 1px solid #e9e7dd;
+      border-radius: 13px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px #173c350a;
+    }
+
+    .cover {
+      height: 190px;
+      background: #e5e9df;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--green);
+      font-size: 50px;
+    }
+
+    .cover img { width: 100%; height: 100%; object-fit: cover; }
+
+    .book-info { padding: 15px; }
+
+    .book h3 { margin: 0 0 9px; font-size: 17px; line-height: 1.6; }
+    .book p { color: var(--muted); font-size: 13px; line-height: 1.8; }
+
+    .book .btn { width: 100%; margin-top: 8px; }
+
+    .empty {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      line-height: 2;
+    }
+
+    .notice {
+      background: #fff8e7;
+      color: #775b20;
+      padding: 12px;
+      border-radius: 9px;
+      margin: 15px 0;
+      line-height: 1.8;
+    }
+
+    footer {
+      background: var(--green);
+      color: #e2eae3;
+      text-align: center;
+      padding: 28px 15px;
+      line-height: 2;
+      font-size: 13px;
+    }
+
+    dialog {
+      border: 0;
+      border-radius: 15px;
+      width: min(420px, calc(100% - 25px));
+      padding: 25px;
+      box-shadow: 0 15px 70px #0003;
+    }
+
+    dialog::backdrop { background: #10231f99; }
+
+    dialog h2 { margin-top: 0; }
+
+    .field { margin: 15px 0; }
+    .field label { display: block; margin-bottom: 7px; font-size: 14px; }
+
+    .field input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d7ded7;
+      border-radius: 8px;
+    }
+
+    .dialog-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .dialog-actions .btn { flex: 1; }
+
+    #authMessage { font-size: 13px; line-height: 1.8; color: var(--muted); }
+
+    @media (max-width: 500px) {
+      header { padding: 16px 5%; }
+      .hero { padding: 42px 5%; }
+      .search { flex-direction: column; }
+      .search .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      أقراني
+      <small>المعرفة تجمعنا</small>
+    </div>
+
+    <div class="header-actions">
+      <span id="userLabel"></span>
+      <button class="btn btn-outline" id="loginBtn">تسجيل الدخول</button>
+      <button class="btn btn-gold" id="signupBtn">إنشاء حساب</button>
+      <button class="btn btn-outline" id="logoutBtn" hidden>خروج</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>عالم من المعرفة بين يديك</h1>
+    <p>اكتشف الكتب، وابحث عن موضوعك المفضل، وابدأ رحلتك في القراءة مع مكتبة أقراني الإلكترونية.</p>
+
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="ابحث باسم الكتاب أو المؤلف...">
+      <button class="btn btn-gold" id="searchBtn">بحث عن كتاب</button>
+    </div>
+  </section>
+
+  <main>
+    <div class="section-head">
+      <h2>مكتبة الكتب</h2>
+      <span id="bookCount"></span>
+    </div>
+
+    <div id="status">جارٍ الاتصال بالمكتبة...</div>
+    <div id="bookGrid" class="book-grid"></div>
+  </main>
+
+  <footer>
+    <strong>أقراني</strong>
+    <div>مساحة عربية للقراءة والمعرفة</div>
+    <div>© أقراني - جميع الحقوق محفوظة</div>
+  </footer>
+
+  <dialog id="authDialog">
+    <h2 id="dialogTitle">تسجيل الدخول</h2>
+
+    <form id="authForm">
+      <div class="field">
+        <label for="email">البريد الإلكتروني</label>
+        <input id="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="password">كلمة المرور</label>
+        <input id="password" type="password" autocomplete="current-password"
+               minlength="6" required>
+      </div>
+
+      <div id="authMessage" role="status"></div>
+
+      <div class="dialog-actions">
+        <button class="btn btn-green" id="authSubmit" type="submit">دخول</button>
+        <button class="btn" type="button" id="closeDialog">إلغاء</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // بيانات الربط: ضع Publishable key الجديد مكان النص أدناه.
+    const SUPABASE_URL = "https://qzjcazfbodofihsqsett.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7gQfDxoQ1Cq9wX2Z0swtkQ_vqeLtxSM";
+
+    const statusBox = document.getElementById("status");
+    const bookGrid = document.getElementById("bookGrid");
+    const authDialog = document.getElementById("authDialog");
+
+    let supabaseClient = null;
+    let allBooks = [];
+    let authMode = "login";
+
+    function setStatus(message) {
+      statusBox.textContent = message;
+    }
+
+    function openAuth(mode) {
+      authMode = mode;
+      document.getElementById("dialogTitle").textContent =
+        mode === "signup" ? "إنشاء حساب جديد" : "تسجيل الدخول";
+
+      document.getElementById("authSubmit").textContent =
+        mode === "signup" ? "إنشاء الحساب" : "دخول";
+
+      document.getElementById("authMessage").textContent = "";
+      document.getElementById("password").value = "";
+      authDialog.showModal();
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function renderBooks(books) {
+      bookGrid.replaceChildren();
+      document.getElementById("bookCount").textContent =
+        "عدد النتائج: " + books.length;
+
+      if (!books.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent =
+          "لا توجد كتب لعرضها حاليًا. تأكد من إضافة كتب منشورة في قاعدة البيانات.";
+        bookGrid.appendChild(empty);
+        return;
+      }
+
+      for (const book of books) {
+        const card = document.createElement("article");
+        card.className = "book";
+
+        const cover = document.createElement("div");
+        cover.className = "cover";
+
+        if (book.cover_url) {
+          const img = document.createElement("img");
+          img.src = book.cover_url;
+          img.alt = "غلاف " + (book.title || "كتاب");
+          img.loading = "lazy";
+          img.onerror = () => {
+            cover.replaceChildren();
+            cover.textContent = "📚";
+          };
+          cover.appendChild(img);
+        } else {
+          cover.textContent = "📚";
+        }
+
+        const info = document.createElement("div");
+        info.className = "book-info";
+
+        const title = document.createElement("h3");
+        title.textContent = book.title || "كتاب بدون عنوان";
+
+        const author = document.createElement("p");
+        author.textContent = book.author
+          ? "المؤلف: " + book.author
+          : "المؤلف غير محدد";
+
+        const description = document.createElement("p");
+        description.textContent = book.description || "اكتشف هذا الكتاب.";
+
+        const readButton = document.createElement("button");
+        readButton.className = "btn btn-green";
+        readButton.textContent = "قراءة الكتاب";
+
+        readButton.addEventListener("click", async () => {
+          const { data } = await supabaseClient.auth.getSession();
+
+          if (!data.session) {
+            openAuth("login");
+            document.getElementById("authMessage").textContent =
+              "سجّل الدخول أولًا لقراءة الكتب.";
+            return;
+          }
+
+          if (!book.file_url) {
+            alert("لم يُضف ملف PDF لهذا الكتاب بعد.");
+            return;
+          }
+
+          // يفترض أن file_url يحتوي مسار الملف داخل bucket الخاص.
+          // مثال: folder/book.pdf
+          const { data: signedData, error } =
+            await supabaseClient.storage
+              .from("books")
+              .createSignedUrl(book.file_url, 300);
+
+          if (error) {
+            console.error(error);
+            alert("تعذر فتح الكتاب. تحقق من مسار الملف وصلاحيات التخزين.");
+            return;
+          }
+
+          window.open(signedData.signedUrl, "_blank", "noopener");
+        });
+
+        info.append(title, author, description, readButton);
+        card.append(cover, info);
+        bookGrid.appendChild(card);
+      }
+    }
+
+    async function loadBooks() {
+      setStatus("جارٍ تحميل الكتب...");
+
+      // أسماء الأعمدة المفترضة: title, author, description,
+      // cover_url, file_url, published.
+      const { data, error } = await supabaseClient
+        .from("books")
+        .select("id,title,author,description,cover_url,file_url")
+        .eq("published", true)
+        .order("title", { ascending: true });
+
+      if (error) {
+        console.error("Books query error:", error);
+        setStatus(
+          "تعذر تحميل الكتب. تحقق من أسماء الأعمدة وسياسات RLS في Supabase."
+        );
+        return;
+      }
+
+      allBooks = data || [];
+      setStatus(allBooks.length
+        ? "اختر كتابًا للبدء بالقراءة."
+        : "المكتبة جاهزة، لكن لا توجد كتب منشورة حاليًا.");
+
+      filterBooks();
+    }
+
+    function filterBooks() {
+      const query = document.getElementById("searchInput")
+        .value.trim().toLocaleLowerCase("ar");
+
+      const filtered = allBooks.filter(book =>
+        [book.title, book.author, book.description]
+          .some(value => String(value || "")
+            .toLocaleLowerCase("ar").includes(query))
+      );
+
+      renderBooks(filtered);
+    }
+
+    function updateUser(user) {
+      document.getElementById("userLabel").textContent =
+        user ? (user.email || "مستخدم مسجل") : "";
+
+      document.getElementById("loginBtn").hidden = !!user;
+      document.getElementById("signupBtn").hidden = !!user;
+      document.getElementById("logoutBtn").hidden = !user;
+    }
+
+    async function init() {
+      if (!window.supabase) {
+        setStatus("تعذر تحميل مكتبة الاتصال. تحقق من اتصال الإنترنت.");
+        return;
+      }
+
+      if (SUPABASE_PUBLISHABLE_KEY === "ضع_Publishable_key_هنا") {
+        setStatus("أضف Publishable key في الكود أولًا.");
+        return;
+      }
+
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+      const { data: sessionData } = await supabaseClient.auth.getSession();
+      updateUser(sessionData.session?.user || null);
+
+      supabaseClient.auth.onAuthStateChange((_event, session) => {
+        updateUser(session?.user || null);
+      });
+
+      await loadBooks();
+    }
+
+    document.getElementById("loginBtn")
+      .addEventListener("click", () => openAuth("login"));
+
+    document.getElementById("signupBtn")
+      .addEventListener("click", () => openAuth("signup"));
+
+    document.getElementById("closeDialog")
+      .addEventListener("click", () => authDialog.close());
+
+    document.getElementById("logoutBtn")
+      .addEventListener("click", async () => {
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) alert("تعذر تسجيل الخروج.");
+        else updateUser(null);
+      });
+
+    document.getElementById("authForm")
+      .addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("authMessage");
+        const submit = document.getElementById("authSubmit");
+
+        submit.disabled = true;
+        message.textContent = "جارٍ التنفيذ...";
+
+        try {
+          let result;
+
+          if (authMode === "signup") {
+            result = await supabaseClient.auth.signUp({ email, password });
+          } else {
+            result = await supabaseClient.auth.signInWithPassword({
+              email, password
+            });
+          }
+
+          if (result.error) throw result.error;
+
+          if (authMode === "signup" && !result.data.session) {
+            message.textContent =
+              "تم إنشاء الطلب. افحص بريدك الإلكتروني لتأكيد الحساب إذا طُلب ذلك.";
+            return;
+          }
+
+          message.textContent = "تم بنجاح.";
+          updateUser(result.data.user || result.data.session?.user || null);
+          setTimeout(() => authDialog.close(), 700);
+        } catch (error) {
+          console.error(error);
+          message.textContent = "تعذر إكمال العملية: " + (error.message || "خطأ غير معروف");
+        } finally {
+          submit.disabled = false;
+        }
+      });
+
+    document.getElementById("searchBtn")
+      .addEventListener("click", filterBooks);
+
+    document.getElementById("searchInput")
+      .addEventListener("input", filterBooks);
+
+    init();
+  </script>
+</body>
+</html>
